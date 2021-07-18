@@ -59,6 +59,9 @@
     <Compile Include="Assets\Scripts\UI\TestPlayer.cs" />
     <Compile Include="Assets\Scripts\UI\CharactorMovement.cs" />
     <Compile Include="Assets\Scripts\UI\HealthBar.cs" />
+    <Compile Include="Assets\Scripts\EnemyAi.cs" />
+    <Compile Include="Assets\Scripts\EnemySpawner.cs" />
+    <Compile Include="Assets\Scripts\EnemySpawnerVertical.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

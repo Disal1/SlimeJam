@@ -167,11 +167,23 @@ public class CharactorMovement : MonoBehaviour
 
     public void eat()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetKey(KeyCode.E))
         {
+            Vector3 dir = lastMoveDir;
+            float distance = 0.5f;
+
             attackCounter = attackTime;
             anim.SetBool("isEating",true);
             isEating = true;
+
+            Collider2D hit = Physics2D.Raycast(transform.position, dir, distance).collider;
+            if (hit != null)
+            {
+                string nam = hit.gameObject.name;
+                Debug.Log(nam);
+                Destroy(hit.gameObject);
+            }
+
         }
     }
 }
