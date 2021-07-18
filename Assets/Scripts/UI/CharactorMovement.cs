@@ -42,7 +42,7 @@ public class CharactorMovement : MonoBehaviour
         {
             Debug.Log("Dash Available");
         }
-        Debug.Log(staminaDash);
+        //Debug.Log(staminaDash);
 
         eat();
 
@@ -152,7 +152,15 @@ public class CharactorMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.E))
         {
+            Vector3 dir = lastMoveDir;
+            float distance = 0.5f;
             anim.SetTrigger("eat");
+            Collider2D hit = Physics2D.Raycast(transform.position, dir, distance).collider;
+            if (hit != null) {
+                string nam = hit.gameObject.name;
+                Debug.Log(nam);
+                Destroy(hit.gameObject);
+            }
         }
     }
 }
