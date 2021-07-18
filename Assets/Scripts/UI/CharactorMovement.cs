@@ -167,7 +167,7 @@ public class CharactorMovement : MonoBehaviour
 
     public void eat()
     {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetMouseButton(0))
         {
             Vector3 dir = lastMoveDir;
             float distance = 0.5f;
@@ -179,9 +179,12 @@ public class CharactorMovement : MonoBehaviour
             Collider2D hit = Physics2D.Raycast(transform.position, dir, distance).collider;
             if (hit != null)
             {
-                string nam = hit.gameObject.name;
-                Debug.Log(nam);
-                Destroy(hit.gameObject);
+                if (hit.gameObject.name != "Tilemap")
+                {
+                    string nam = hit.gameObject.name;
+                    Debug.Log(nam);
+                    Destroy(hit.gameObject);
+                }
             }
 
         }
