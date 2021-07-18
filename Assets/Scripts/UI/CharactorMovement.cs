@@ -44,6 +44,7 @@ public class CharactorMovement : MonoBehaviour
         }
         Debug.Log(staminaDash);
 
+        eat();
 
     }
 
@@ -71,7 +72,7 @@ public class CharactorMovement : MonoBehaviour
         //float speed = 25.0f;
         float moveX = 0.0f;
         float moveY = 0.0f;
-/*
+
         if (Input.GetKey(KeyCode.W))
         {
             moveY = +1f;
@@ -88,7 +89,7 @@ public class CharactorMovement : MonoBehaviour
         {
             moveX = +1f;
         }
-*/
+
         Vector3 moveDir = new Vector3(moveX, moveY).normalized;
         Vector3 targetMovePos = transform.position + moveDir * speed * Time.deltaTime;
         RaycastHit2D raycast = Physics2D.Raycast(transform.position, moveDir, speed * Time.deltaTime);
@@ -144,6 +145,14 @@ public class CharactorMovement : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    public void eat()
+    {
+        if (Input.GetKey(KeyCode.E))
+        {
+            anim.SetTrigger("eat");
         }
     }
 }
