@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class CharactorMovement : MonoBehaviour
 {
-    Rigidbody2D body;
+    public float speed = 250.0f; //Changed to global variable, was originally in handleMovement()
+    public Animator anim;
+    public Rigidbody2D body;
 
     float horizontal;
     float vertical;
@@ -25,6 +27,8 @@ public class CharactorMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
         if (staminaDash < 20f)
         {
             staminaDash += Time.deltaTime;
@@ -39,6 +43,8 @@ public class CharactorMovement : MonoBehaviour
             Debug.Log("Dash Available");
         }
         Debug.Log(staminaDash);
+
+
     }
 
     private void FixedUpdate()
@@ -48,7 +54,21 @@ public class CharactorMovement : MonoBehaviour
 
     private void handleMovement()
     {
-        float speed = 250.0f;
+        //Did some stuff to get movement animations working here from here,
+        body.velocity = new Vector2(Input.GetAxisRaw("Horizontal"),Input.GetAxisRaw("Vertical"));
+
+        anim.SetFloat("moveX", body.velocity.x);
+        anim.SetFloat("moveY", body.velocity.y);
+
+        if(Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1 || 
+            Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
+        {
+            anim.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
+            anim.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
+        }
+        //To here. LETS GO MGC!!!
+
+        //float speed = 25.0f;
         float moveX = 0.0f;
         float moveY = 0.0f;
 
@@ -85,7 +105,7 @@ public class CharactorMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            float dashDistance = 75f;
+            float dashDistance = 3f;
             Vector3 beforeDashPosition = transform.position;
             TryMove(lastMoveDir, dashDistance);
             staminaDash -= 4f;
