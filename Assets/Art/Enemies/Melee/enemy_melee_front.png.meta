@@ -1,19 +1,16 @@
 fileFormatVersion: 2
-guid: a4ef0776a0391ef48b0080edbd136cfc
+guid: dccd70e42bc4a444c994c65f55c4a304
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 574678681337555760
-    second: slime_eat_left_0
+      213: -5628767494124380518
+    second: enemy_melee_front_0
   - first:
-      213: 1986417476994891705
-    second: slime_eat_left_1
+      213: -8824404093628827738
+    second: enemy_melee_front_1
   - first:
-      213: -466551169228104962
-    second: slime_eat_left_2
-  - first:
-      213: 3746480699498879102
-    second: slime_eat_left_3
+      213: -5408343390654942286
+    second: enemy_melee_front_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -103,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: slime_eat_left_0
+      name: enemy_melee_front_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 8
-        width: 37
-        height: 28
+        x: 2
+        y: 0
+        width: 28
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,20 +114,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03b6d15473ba9f700800000000000000
-      internalID: 574678681337555760
+      spriteID: a9e537d59c992e1b0800000000000000
+      internalID: -5628767494124380518
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_eat_left_1
+      name: enemy_melee_front_1
       rect:
         serializedVersion: 2
-        x: 48
-        y: 8
-        width: 37
-        height: 30
+        x: 34
+        y: 0
+        width: 28
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,20 +135,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9bf78ebbb2c219b10800000000000000
-      internalID: 1986417476994891705
+      spriteID: 6a730c40b3b698580800000000000000
+      internalID: -8824404093628827738
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_eat_left_2
+      name: enemy_melee_front_2
       rect:
         serializedVersion: 2
-        x: 96
-        y: 8
-        width: 37
-        height: 34
+        x: 66
+        y: 0
+        width: 28
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,29 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: efa9d98fe2a7689f0800000000000000
-      internalID: -466551169228104962
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slime_eat_left_3
-      rect:
-        serializedVersion: 2
-        x: 146
-        y: 8
-        width: 37
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e78dc73b85c2ef330800000000000000
-      internalID: 3746480699498879102
+      spriteID: 2b33ea04754b1f4b0800000000000000
+      internalID: -5408343390654942286
       vertices: []
       indices: 
       edges: []

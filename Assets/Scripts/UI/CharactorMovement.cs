@@ -8,6 +8,10 @@ public class CharactorMovement : MonoBehaviour
     public Animator anim;
     public Rigidbody2D body;
 
+    private float attackTime = .25f;
+    private float attackCounter = .25f; //Used as a countdown as to when the attack animation should end.
+    private bool isEating;
+
     float horizontal;
     float vertical;
 
@@ -44,8 +48,18 @@ public class CharactorMovement : MonoBehaviour
         }
         Debug.Log(staminaDash);
 
+        //Eating Animation related code
+        if (isEating) 
+        {
+            body.velocity = Vector2.zero; //If we remove this then the player can move whilst attacking.
+            attackCounter -= Time.deltaTime;
+            if(attackCounter <= 0)
+            {
+                anim.SetBool("isEating", false);
+                isEating = false;
+            }
+        }
         eat();
-
     }
 
     private void FixedUpdate()
@@ -80,14 +94,17 @@ public class CharactorMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             moveX = -1f;
+            eat();
         }
         if (Input.GetKey(KeyCode.S))
         {
             moveY = -1f;
+            
         }
         if (Input.GetKey(KeyCode.D))
         {
             moveX = +1f;
+            
         }
 
         Vector3 moveDir = new Vector3(moveX, moveY).normalized;
@@ -150,9 +167,11 @@ public class CharactorMovement : MonoBehaviour
 
     public void eat()
     {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetMouseButton(0))
         {
-            anim.SetTrigger("eat");
+            attackCounter = attackTime;
+            anim.SetBool("isEating",true);
+            isEating = true;
         }
     }
 }
