@@ -11,6 +11,9 @@ public class EnemyAi : MonoBehaviour
     public GameObject ignoreCollider;
     // Start is called before the first frame update
 
+    public Animator anim;
+    public CharactorMovement cm;
+
     private void OnTrigerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
@@ -44,5 +47,16 @@ public class EnemyAi : MonoBehaviour
     void moveCharactor(Vector2 direction)
     {
         rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
+
+        rb.velocity = new Vector2(transform.position.x, transform.position.y);
+
+        anim.SetFloat("moveX", rb.velocity.x);
+        anim.SetFloat("moveY", rb.velocity.y);
+
+        // transform.LookAt(cm.body.transform, Vector3.up); It has something to do with this
+
+
+        //Debug.Log("X = " + rb.transform.position.x);
+        //Debug.Log("Y = "+ rb.transform.position.y);
     }
 }
