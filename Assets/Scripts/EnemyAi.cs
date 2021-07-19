@@ -26,6 +26,7 @@ public class EnemyAi : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         tempMoveSpeed = moveSpeed;
         healthDamage = healthDmg.GetComponent<CharactorMovement>();
+        Debug.Log(healthDamage.currentHealth);
     }
 
     // Update is called once per frame
@@ -73,9 +74,13 @@ public class EnemyAi : MonoBehaviour
                 if (hit != null)
                 {
                     string nam = hit.gameObject.name;
-                    healthDamage.TakeDamage(20);
-                    Destroy(hit.gameObject);
+                    healthDamage.TakeDamage(50);
                     
+                    if (healthDamage.currentHealth <= 0) {
+                        Destroy(hit.gameObject);
+                    }
+                    moveSpeed = tempMoveSpeed;
+                    didAttack = true;
                     Debug.Log("Im hit");
                 }
                 else
