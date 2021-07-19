@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAi : MonoBehaviour
 {
-    public CharactorMovement healthDamage;  
+    public CharactorMovement healthDamage;
     public GameObject healthDmg;
     public Transform player;
     private Rigidbody2D rb;
@@ -26,6 +26,7 @@ public class EnemyAi : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         tempMoveSpeed = moveSpeed;
         healthDamage = healthDmg.GetComponent<CharactorMovement>();
+        Debug.Log(healthDamage.currentHealth);
     }
 
     // Update is called once per frame
@@ -72,20 +73,32 @@ public class EnemyAi : MonoBehaviour
             {
                 if (hit != null)
                 {
+                    //Player take Damage animation 
                     string nam = hit.gameObject.name;
                     healthDamage.TakeDamage(20);
-                    Destroy(hit.gameObject);
-                    
+
+                    if (healthDamage.currentHealth <= 0)
+                    {
+                        //Player death animation
+                        Destroy(hit.gameObject);
+                    }
+                    moveSpeed = tempMoveSpeed;
+                    didAttack = true;
+                    anim.SetBool("isAttacking", false);
                     Debug.Log("Im hit");
                 }
                 else
                 {
+                    //Not sure what animation here
                     moveSpeed = tempMoveSpeed;
                     didAttack = true;
+                    
                 }
             }
             else if (inteAttack == 0 && didAttack)
             {
+                //Enemy attack animation
+                anim.SetBool("isAttacking", true);
                 enemyAttackTime = 2f;
                 didAttack = false;
             }

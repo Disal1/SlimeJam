@@ -32,7 +32,7 @@ public class EnemySpawnerVertical : MonoBehaviour
                 enemy = enemies[1];
             }
             nextSpanwn = Time.time + spawmRate;
-            randY = Random.Range(-3.5f, 3.5f);
+            randY = Random.Range(-4.5f, 4.5f); //Enter range of arena
             whereToSpawn = new Vector2(transform.position.x, randY);
             Instantiate(enemy, whereToSpawn, Quaternion.identity);
         }
