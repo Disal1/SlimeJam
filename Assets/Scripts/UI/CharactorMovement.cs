@@ -12,6 +12,12 @@ public class CharactorMovement : MonoBehaviour
     private float attackCounter = .25f; //Used as a countdown as to when the attack animation should end.
     private bool isEating;
 
+    //Health related variables
+    public int maxHealth = 100;
+    public int currentHealth;
+    public HealthBar healthBar;
+    //Until here
+
     float horizontal;
     float vertical;
 
@@ -22,16 +28,22 @@ public class CharactorMovement : MonoBehaviour
     float staminaDash = 20f;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            TakeDamage(10);
+        }
 
         if (staminaDash < 20f)
         {
@@ -65,6 +77,12 @@ public class CharactorMovement : MonoBehaviour
     private void FixedUpdate()
     {
 
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
     }
 
     private void handleMovement()

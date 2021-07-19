@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemySpawnerVertical : MonoBehaviour
 {
-    public GameObject enemy;
+    public GameObject[] enemies;
+    private GameObject enemy;
     float randY;
     Vector2 whereToSpawn;
     public float spawmRate = 2f;
@@ -20,6 +21,16 @@ public class EnemySpawnerVertical : MonoBehaviour
     {
         if (Time.time > nextSpanwn)
         {
+            float randnumber = Random.Range(0, 2);
+            Debug.Log(randnumber);
+            if (randnumber < 0.8f)
+            {
+                enemy = enemies[0];
+            }
+            else
+            {
+                enemy = enemies[1];
+            }
             nextSpanwn = Time.time + spawmRate;
             randY = Random.Range(-3.5f, 3.5f);
             whereToSpawn = new Vector2(transform.position.x, randY);

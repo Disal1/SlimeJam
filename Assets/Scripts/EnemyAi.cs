@@ -4,37 +4,43 @@ using UnityEngine;
 
 public class EnemyAi : MonoBehaviour
 {
+    public CharactorMovement healthDamage;  
+    public GameObject healthDmg;
     public Transform player;
     private Rigidbody2D rb;
-    public float moveSpeed = 5f;
+    private float moveSpeed = 5f;
+    private float tempMoveSpeed = 0f;
     private Vector2 movement;
     public GameObject ignoreCollider;
+    private float enemyAttackTime = 0f;
+    private int inteAttack = 0;
+    private bool didAttack = true;
     // Start is called before the first frame update
 
-    public Animator anim;
-    public CharactorMovement cm;
+    public int startHealth;
 
-    private void OnTrigerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            Debug.Log("Ouch");
-        }
-    }
+    public Animator anim;
 
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
-        Physics.IgnoreCollision(ignoreCollider.GetComponent<Collider>(), GetComponent<Collider>());
+        tempMoveSpeed = moveSpeed;
+        healthDamage = healthDmg.GetComponent<CharactorMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (inteAttack > 0)
+        {
+            moveSpeed = 0f;
+            enemyAttackTime -= Time.deltaTime;
+        }
+        inteAttack = (int)enemyAttackTime;
+        //Debug.Log(inteAttack);
         Vector3 direction = player.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         //rb.rotation = angle;
-
         direction.Normalize();
         movement = direction;
     }
@@ -48,7 +54,7 @@ public class EnemyAi : MonoBehaviour
     {
         rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
 
-        rb.velocity = new Vector2(transform.position.x, transform.position.y);
+        rb.velocity = new Vector2(player.position.x, player.position.y);
 
         anim.SetFloat("moveX", rb.velocity.x);
         anim.SetFloat("moveY", rb.velocity.y);
@@ -58,5 +64,39 @@ public class EnemyAi : MonoBehaviour
 
         //Debug.Log("X = " + rb.transform.position.x);
         //Debug.Log("Y = "+ rb.transform.position.y);
+        Collider2D hit = Physics2D.Raycast(transform.position, direction, 1f).collider;
+        if (hit != null && hit.gameObject.name == "Player")
+        {
+            Debug.Log(inteAttack);
+            if (inteAttack < 1 && !didAttack)
+            {
+                if (hit != null)
+                {
+                    string nam = hit.gameObject.name;
+                    healthDamage.TakeDamage(20);
+                    Destroy(hit.gameObject);
+                    
+                    Debug.Log("Im hit");
+                }
+                else
+                {
+                    moveSpeed = tempMoveSpeed;
+                    didAttack = true;
+                }
+            }
+            else if (inteAttack == 0 && didAttack)
+            {
+                enemyAttackTime = 2f;
+                didAttack = false;
+            }
+        }
+        else if (!didAttack)
+        {
+            if (inteAttack < 1)
+            {
+                moveSpeed = tempMoveSpeed;
+                didAttack = true;
+            }
+        }
     }
 }
