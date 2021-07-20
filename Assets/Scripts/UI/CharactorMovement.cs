@@ -17,6 +17,8 @@ public class CharactorMovement : MonoBehaviour
     public int currentHealth;
     public HealthBar healthBar;
     private float drainTimer = 1;
+    public int enemyKills = 0;
+    private int allKills = 0;
     //Until here
 
     float horizontal;
@@ -41,6 +43,9 @@ public class CharactorMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (enemyKills == 10) {
+            enemyKills = 0;
+        }
         if (currentHealth <= 0) {
             Destroy(gameObject);
         }
@@ -63,7 +68,6 @@ public class CharactorMovement : MonoBehaviour
             Debug.Log("Dash Unavailable");
         }
         drainTimer = drainTimer + Time.deltaTime;
-        Debug.Log((int)drainTimer);
         if ((int)drainTimer % 3 == 0)
         {
             TakeDamage(10);
@@ -218,6 +222,8 @@ public class CharactorMovement : MonoBehaviour
                     string nam = hit.gameObject.name;
                     Debug.Log(nam);
                     Destroy(hit.gameObject);
+                    enemyKills++;
+                    allKills++;
                 }
             }
 
