@@ -16,6 +16,7 @@ public class CharactorMovement : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
     public HealthBar healthBar;
+    private float drainTimer = 1;
     //Until here
 
     float horizontal;
@@ -40,6 +41,9 @@ public class CharactorMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentHealth <= 0) {
+            Destroy(gameObject);
+        }
         if (Input.GetKeyDown(KeyCode.E))
         {
             TakeDamage(10);
@@ -56,9 +60,15 @@ public class CharactorMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log("Dash Available");
+            Debug.Log("Dash Unavailable");
         }
-        Debug.Log(staminaDash);
+        drainTimer = drainTimer + Time.deltaTime;
+        Debug.Log((int)drainTimer);
+        if ((int)drainTimer % 3 == 0)
+        {
+            TakeDamage(10);
+            drainTimer = 1;
+        }
 
         //Eating Animation related code
         if (isEating) 
@@ -199,6 +209,12 @@ public class CharactorMovement : MonoBehaviour
             {
                 if (hit.gameObject.name != "Tilemap")
                 {
+                    currentHealth += 20;
+                    if(currentHealth > 100)
+                    {
+                        currentHealth = 100;
+                    }
+                    healthBar.SetHealth(currentHealth);
                     string nam = hit.gameObject.name;
                     Debug.Log(nam);
                     Destroy(hit.gameObject);
