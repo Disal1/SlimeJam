@@ -5,13 +5,31 @@ using UnityEngine;
 public class CharactorMovement : MonoBehaviour
 {
     public float speed = 250.0f; //Changed to global variable, was originally in handleMovement()
+    float tempspeed = 0;
     public Animator anim;
     public Rigidbody2D body;
+    public Camera cam;
+    public Transform firepoint;
 
     private float attackTime = .25f;
     private float attackCounter = .25f; //Used as a countdown as to when the attack animation should end.
     private bool isEating;
 
+<<<<<<< Updated upstream
+=======
+    //Health related variables
+    public int maxHealth = 100;
+    public int currentHealth;
+    public HealthBar healthBar;
+    private float drainTimer = 1;
+    public int enemyKills = 0;
+    private int allKills = 0;
+    public GameObject bullet;
+    public float bulletforce = 100f;
+    Vector2 mousePos;
+    //Until here
+
+>>>>>>> Stashed changes
     float horizontal;
     float vertical;
 
@@ -26,6 +44,12 @@ public class CharactorMovement : MonoBehaviour
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
+<<<<<<< Updated upstream
+=======
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+        tempspeed = speed;
+>>>>>>> Stashed changes
     }
 
     // Update is called once per frame
@@ -106,6 +130,22 @@ public class CharactorMovement : MonoBehaviour
             moveX = +1f;
             
         }
+        if (Input.GetKey(KeyCode.Q))
+        {
+            speed = 0;
+            mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 lookDir = mousePos - body.position;
+            float angg = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+            //body.rotation = angg;
+        }
+        else if (speed == 0) {
+            speed = tempspeed;
+        }
+
+        /*if (Input.GetButtonDown("Fire1"))
+        {
+            shoot();
+        }*/
 
         Vector3 moveDir = new Vector3(moveX, moveY).normalized;
         Vector3 targetMovePos = transform.position + moveDir * speed * Time.deltaTime;
@@ -189,4 +229,10 @@ public class CharactorMovement : MonoBehaviour
 
         }
     }
+
+    /*void shoot() {
+        GameObject bulla = Instantiate(bullet, firepoint.position, firepoint.rotation);
+        Rigidbody2D reb = bulla.GetComponent<Rigidbody2D>();
+        reb.AddForce(transform.up * bulletforce, ForceMode2D.Impulse);
+    }*/
 }

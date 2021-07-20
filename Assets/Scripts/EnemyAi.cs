@@ -22,6 +22,10 @@ public class EnemyAi : MonoBehaviour
     {
         rb = this.GetComponent<Rigidbody2D>();
         tempMoveSpeed = moveSpeed;
+<<<<<<< Updated upstream
+=======
+        healthDamage = healthDmg.GetComponent<CharactorMovement>();
+>>>>>>> Stashed changes
     }
 
     // Update is called once per frame
@@ -62,13 +66,25 @@ public class EnemyAi : MonoBehaviour
         Collider2D hit = Physics2D.Raycast(transform.position, direction, 1f).collider;
         if (hit != null && hit.gameObject.name == "Player")
         {
-            Debug.Log(inteAttack);
             if (inteAttack < 1 && !didAttack)
             {
                 if (hit != null)
                 {
                     string nam = hit.gameObject.name;
+<<<<<<< Updated upstream
                     Destroy(hit.gameObject);
+=======
+                    healthDamage.TakeDamage(20);
+
+                    if (healthDamage.currentHealth <= 0)
+                    {
+                        //Player death animation
+                        Destroy(hit.gameObject);
+                    }
+                    moveSpeed = tempMoveSpeed;
+                    didAttack = true;
+                    anim.SetBool("isAttacking", false);
+>>>>>>> Stashed changes
                 }
                 else
                 {
